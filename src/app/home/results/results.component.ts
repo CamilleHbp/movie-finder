@@ -21,7 +21,6 @@ export class ResultsComponent implements OnInit {
     this.movies$ = this.movieService
       .getDiscoverMoviesObservable()
       .subscribe(movie => {
-        Debug.logValue("subscription movie title", movie.title);
         this.movies.push(movie);
         // There is a bug with ion-virtual-scroll that causes the list not to be rerendered when the state is updated
         // The fix is to send a resize event to force rerendering

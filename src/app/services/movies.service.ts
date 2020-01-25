@@ -17,7 +17,7 @@ export class MoviesService {
   constructor(private http: HttpClient, private storage: Storage) {}
 
   getDiscoverPages(apiKey: string, pages: number): Observable<MovieResult> {
-    return range(1, 5).pipe(
+    return range(1, pages).pipe(
       // delay(100),
       flatMap(page => {
         const pageResults = this.http
