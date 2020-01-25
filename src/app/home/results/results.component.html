@@ -1,11 +1,12 @@
 <ion-virtual-scroll [items]="movies">
-  <ion-card *virtualItem="let movie">
-    <ion-card-header>
-      <ion-card-title> {{ movie.title }}</ion-card-title>
-    </ion-card-header>
+  <ion-item *virtualItem="let movie">
+    <ion-label> {{ movie.title }}</ion-label>
 
-    <ion-card-content>
-      {{ movie.overview }}
-    </ion-card-content>
-  </ion-card>
+    <ion-item-group>
+      <ion-thumbnail slot="start">
+        <ion-img src='http://image.tmdb.org/t/p/w92{{movie.poster_path}}'> </ion-img>
+      </ion-thumbnail>
+      <ion-label> {{ movie.overview }} </ion-label>
+    </ion-item-group>
+  </ion-item>
 </ion-virtual-scroll>
