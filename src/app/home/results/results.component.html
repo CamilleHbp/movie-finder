@@ -1,0 +1,11 @@
+<ion-virtual-scroll [items]="movies">
+  <ion-card *virtualItem="let movie">
+    <ion-card-header>
+      <ion-card-title> {{ movie.title }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ movie.overview }}
+    </ion-card-content>
+  </ion-card>
+</ion-virtual-scroll>
