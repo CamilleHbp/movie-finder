@@ -25,16 +25,20 @@ export class MoviesService {
       )
       .pipe(
         switchMap(response => {
-          delay(200);
           const maxPages = response.total_pages;
           const moviesObservable: Observable<MovieResult>[] = [];
           for (let page = 0; page <= maxPages; page++) {
             moviesObservable.push(
               this.http
                 .get<DiscoverResponse>(
-                  `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&page=${page}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
+                  `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`
                 )
-                .pipe(flatMap(response => response.results))
+                .pipe(
+                  flatMap(response => {
+                    // Debug.logObject("response results", response.results);
+                    return response.results;
+                  })
+                )
             );
           }
           return merge(...moviesObservable);

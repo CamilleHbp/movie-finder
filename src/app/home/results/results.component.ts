@@ -11,11 +11,11 @@ import Debug from '../../../Debug';
   styleUrls: ["./results.component.scss"]
 })
 export class ResultsComponent implements OnInit {
-  private movies$: Subscription = null;
   private movies: MovieResult[] = [];
+  private poster_size: string = 'w92';
 
   constructor(private movieService: MoviesService) {
-    this.movies$ = this.movieService
+    this.movieService
       .getDiscoverMoviesObservable()
       .subscribe(movie => {
         // Debug.logValue("subscription movie title", movie.title);
