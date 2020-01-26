@@ -42,7 +42,7 @@ export class SearchService {
 
   getSearchResults(callback: () => void): Observable<MovieResult> {
     return from(this.input).pipe(
-      startWith(''),
+      startWith(""),
       debounceTime(500),
       distinctUntilChanged(),
       switchMap(query => {
@@ -54,23 +54,6 @@ export class SearchService {
         );
       })
     );
-
-    // return from(this.input).pipe(
-    //   // startWith(""),
-    //   debounceTime(500),
-    //   distinctUntilChanged(),
-    //   switchMap(query => {
-    //     callback();
-    //     return from(this.movieList).pipe(
-    //       filter(movie => {
-    //         return movie.title.toLowerCase().includes(query.toLowerCase());
-    //       }),
-    //       finalize(() => {
-    //         this.isLoading$.next(false);
-    //       })
-    //     );
-    //   })
-    // );
   }
 
   setInputObservable(inputObservable: Observable<any>) {

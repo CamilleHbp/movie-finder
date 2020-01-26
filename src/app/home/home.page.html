@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content>
-  <ng-container *ngIf="WWisReady$ | async; else spinner">
+  <ng-container *ngIf="isReady$ | async; else spinner">
     <app-results></app-results>
   </ng-container>
 </ion-content>

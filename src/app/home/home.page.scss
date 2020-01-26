@@ -1,4 +1,11 @@
 .ionic-spinner {
-    align-self: center;
-    justify-content: center;
+  position: fixed;
+  height: auto;
+  width: 200px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  margin: auto;
+  z-index: 9;
 }
