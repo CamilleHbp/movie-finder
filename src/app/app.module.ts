@@ -11,7 +11,7 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 
-import { MoviesService } from "./services/movies.service";
+import { MovieProviderService } from "./services/movie-provider.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +26,7 @@ import { MoviesService } from "./services/movies.service";
   providers: [
     StatusBar,
     SplashScreen,
-    MoviesService,
+    MovieProviderService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

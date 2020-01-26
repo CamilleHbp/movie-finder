@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MoviesService } from "../../services/movies.service";
+import { SearchService } from "../../services/search.service";
 import MovieResult from "../../services/MovieResult";
 import { Subscription } from "rxjs";
 
@@ -15,11 +15,20 @@ export class ResultsComponent implements OnInit {
   private movies: MovieResult[] = [];
   private poster_size: string = "w92";
 
-  constructor(private movieService: MoviesService) {}
+  constructor(private searchService: SearchService) {}
 
   ngOnInit() {
-    this.movies$ = this.movieService
-      .getDiscoverMoviesObservable()
+    // this.movies$ = this.movieService
+    //   .getDiscoverMoviesObservable()
+    //   .subscribe(movie => {
+    //     this.movies.push(movie);
+    //     // There is a bug with ion-virtual-scroll that causes the list not to be rerendered when the state is updated
+    //     // The fix is to send a resize event to force rerendering
+    //     const event: any = new window["Event"]("resize") as any;
+    //     window.dispatchEvent(event);
+    //   });
+    this.movies$ = this.searchService
+      .getSearchResults()
       .subscribe(movie => {
         this.movies.push(movie);
         // There is a bug with ion-virtual-scroll that causes the list not to be rerendered when the state is updated

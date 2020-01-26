@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Storage } from "@ionic/storage";
 import { environment } from "../../environments/environment";
 import { Observable, merge, range } from "rxjs";
-import { switchMap, delay, flatMap } from "rxjs/operators";
+import { switchMap, delay, flatMap, filter } from "rxjs/operators";
 
 import MovieResult from "./MovieResult";
 import DiscoverResponse from "./DiscoverResponse";
@@ -13,10 +13,13 @@ import Debug from "../../Debug";
 @Injectable({
   providedIn: "root"
 })
-export class MoviesService {
+export class MovieProviderService {
   constructor(private http: HttpClient, private storage: Storage) {}
 
-  private getDiscoverPages(apiKey: string, pages: number): Observable<MovieResult> {
+  private getDiscoverPages(
+    apiKey: string,
+    pages: number
+  ): Observable<MovieResult> {
     return range(1, pages).pipe(
       // delay(100),
       flatMap(page => {
@@ -28,6 +31,12 @@ export class MoviesService {
         // Debug.logObject("pageResults", pageResults);
         return pageResults;
       })
+    );
+  }
+
+  filterMovies(filterQuery: string) {
+    return this.getDiscoverMoviesObservable().pipe(
+      filter(movie => movie.title.includes(filterQuery))
     );
   }
 
