@@ -1,25 +1,15 @@
-<!-- <ul>
-    <li *ngFor="let movie of movies">
-      <ion-title>{{ movie.title }}</ion-title>
-    </li>
-  </ul> -->
-<!-- <ng-container *ngIf="movies$ as movies"> -->
-  <!-- <ion-virtual-scroll *ngFor="let movie of movies"> -->
 <ion-virtual-scroll [items]="movies">
-    <ion-item *virtualItem="let item">
-      <ion-thumbnail slot="start">
-        <ion-img
-          src="http://image.tmdb.org/t/p/{{ poster_size }}{{
-            item.poster_path
-          }}"
-          [alt]="item.title"
-        >
-        </ion-img>
-      </ion-thumbnail>
-      <ion-label class="ion-text-wrap">
-        <h1>{{ item.title }}</h1>
-        <p>{{ item.overview }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-virtual-scroll>
-<!-- </ng-container> -->
+  <ion-item *virtualItem="let item">
+    <ion-thumbnail slot="start">
+      <ion-img
+        src="http://image.tmdb.org/t/p/{{ poster_size }}{{ item.poster_path }}"
+        [alt]="item.title"
+      >
+      </ion-img>
+    </ion-thumbnail>
+    <ion-label class="ion-text-wrap">
+      <h1>{{ item.title }}</h1>
+      <p>{{ item.overview }}</p>
+    </ion-label>
+  </ion-item>
+</ion-virtual-scroll>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MoviesService } from "../../services/movies.service";
 import MovieResult from "../../services/MovieResult";
-import { Subscription, Observable } from "rxjs";
+import { Subscription } from "rxjs";
 
 import Debug from "../../../Debug";
 

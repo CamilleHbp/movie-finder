@@ -16,7 +16,7 @@ import Debug from "../../Debug";
 export class MoviesService {
   constructor(private http: HttpClient, private storage: Storage) {}
 
-  getDiscoverPages(apiKey: string, pages: number): Observable<MovieResult> {
+  private getDiscoverPages(apiKey: string, pages: number): Observable<MovieResult> {
     return range(1, pages).pipe(
       // delay(100),
       flatMap(page => {
