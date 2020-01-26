@@ -5,12 +5,16 @@
     </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <app-search></app-search>
+    <ng-container *ngIf="isReady$ | async; else loading">
+      <app-search></app-search>
+    </ng-container>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <app-results></app-results>
+  <ng-container *ngIf="WWisReady$ | async; else spinner">
+    <app-results></app-results>
+  </ng-container>
 </ion-content>
 
 <ion-footer>
@@ -18,3 +22,11 @@
     Made with ❤️ by CamilleBC.
   </p>
 </ion-footer>
+
+<ng-template #spinner>
+  <ion-spinner class="ionic-spinner"></ion-spinner>
+</ng-template>
+
+<ng-template #loading>
+  <ion-text>Loading data from server...</ion-text>
+</ng-template>

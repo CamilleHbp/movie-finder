@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { SearchService } from "src/app/services/search.service";
 
 @Component({
   selector: "app-home",
@@ -6,5 +7,9 @@ import { Component } from "@angular/core";
   styleUrls: ["home.page.scss"]
 })
 export class HomePage {
-  constructor() {}
+  isReady$;
+  constructor(private searchService: SearchService) {
+
+    this.isReady$ = this.searchService.isReady();
+  }
 }

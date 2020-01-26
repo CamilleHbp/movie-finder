@@ -1,7 +1,3 @@
-<ng-container *ngIf="isLoading$ | async">
-  <ion-spinner></ion-spinner>
-</ng-container>
-
 <ion-virtual-scroll [items]="movies">
   <ion-item *virtualItem="let item">
     <ion-thumbnail slot="start">

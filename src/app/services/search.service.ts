@@ -1,88 +1,83 @@
 import { Injectable } from "@angular/core";
 import SearchFilter from "./SearchFilter";
 import { MovieProviderService } from "./movie-provider.service";
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable, BehaviorSubject, from, Subject, of } from "rxjs";
 import {
   distinctUntilChanged,
   switchMap,
   filter,
   finalize,
+  debounceTime,
   startWith
 } from "rxjs/operators";
 import MovieResult from "./MovieResult";
-import Debug from "src/Debug";
 
 @Injectable({
   providedIn: "root"
 })
 export class SearchService {
-  // private searchFilters: SearchFilter[];
-  // private searchQuery: string;
-  // private searchFiltersObservable: Observable<SearchFilter> = from(
-  //   this.searchFilters
-  // );
   private input: Observable<any>;
-  private discoverMovies: Observable<MovieResult>;
+  private searchQuery: Subject<string> = new Subject<string>();
   private movieList: MovieResult[] = [];
-  private isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private isReady$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private movieProviderService: MovieProviderService) {
-    this.isLoading$.next(true);
+    this.isReady$.next(false);
     this.movieProviderService
       .getDiscoverMoviesObservable()
-      .pipe(finalize(() => {
-        this.isLoading$.next(false)
-        const event: any = new window["Event"]("resize") as any;
-        window.dispatchEvent(event);
-      }))
+      .pipe(
+        finalize(() => {
+          console.log("isReady");
+          this.isReady$.next(true);
+          // const event: any = new window["Event"]("resize") as any;
+          // window.dispatchEvent(event);
+        })
+      )
       .subscribe(movie => this.movieList.push(movie));
   }
 
-  isLoadingInitialMovies() {
-    return this.isLoading$;
+  isReady() {
+    return this.isReady$;
   }
-  // addSearchFilters(searchFilter: SearchFilter) {
-  //   this.searchFilters.push(searchFilter);
-  // }
 
-  // addSearchFilters(searchFilter: SearchFilter) {
-  //   this.searchFilters.push(searchFilter);
-  // }
+  getSearchResults(callback: () => void): Observable<MovieResult> {
+    return from(this.input).pipe(
+      startWith(''),
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(query => {
+        callback();
+        return from(this.movieList).pipe(
+          filter(movie => {
+            return movie.title.toLowerCase().includes(query.toLowerCase());
+          })
+        );
+      })
+    );
 
-  // clearSearchFilters() {
-  //   this.searchFilters = [];
-  //   this.searchFiltersObservable = from([]);
-  // }
-
-  // getSearchFiltersObservable() {
-  //   return this.searchFiltersObservable;
-  // }
-
-  getSearchResults(searchQuery?: string): MovieResult[] {
-    return this.movieList;
-    // const filterObservable = this.input.pipe(
-    //   debounceTime(250),
+    // return from(this.input).pipe(
+    //   // startWith(""),
+    //   debounceTime(500),
     //   distinctUntilChanged(),
+    //   switchMap(query => {
+    //     callback();
+    //     return from(this.movieList).pipe(
+    //       filter(movie => {
+    //         return movie.title.toLowerCase().includes(query.toLowerCase());
+    //       }),
+    //       finalize(() => {
+    //         this.isLoading$.next(false);
+    //       })
+    //     );
+    //   })
     // );
-    // switchMap(input => {
-    //   Debug.logValue("getSearchResults input", input);
-    //   return from(this.movieList).pipe(
-    //     filter(movie =>
-    //       movie.title.toLowerCase().includes(input.toLowerCase())
-    //     )
-    //   );
-
-    // switchMap(input => {
-    //   Debug.logValue("getSearchResults input", input);
-    //   return this.movies.pipe(
-    //     filter(movie =>
-    //       movie.title.toLowerCase().includes(input.toLowerCase())
-    //     )
-    //   );
-    // })
   }
 
   setInputObservable(inputObservable: Observable<any>) {
     this.input = inputObservable;
+  }
+
+  setSearchQuery(searchQuery: string) {
+    this.searchQuery.next(searchQuery);
   }
 }
