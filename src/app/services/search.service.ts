@@ -1,8 +1,14 @@
 import { Injectable } from "@angular/core";
 import SearchFilter from "./SearchFilter";
 import { MovieProviderService } from "./movie-provider.service";
-import { Observable, from } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap, filter } from "rxjs/operators";
+import { Observable, BehaviorSubject } from "rxjs";
+import {
+  distinctUntilChanged,
+  switchMap,
+  filter,
+  finalize,
+  startWith
+} from "rxjs/operators";
 import MovieResult from "./MovieResult";
 import Debug from "src/Debug";
 
@@ -18,21 +24,23 @@ export class SearchService {
   private input: Observable<any>;
   private discoverMovies: Observable<MovieResult>;
   private movieList: MovieResult[] = [];
+  private isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private movieProviderService: MovieProviderService) {
+    this.isLoading$.next(true);
     this.movieProviderService
       .getDiscoverMoviesObservable()
+      .pipe(finalize(() => {
+        this.isLoading$.next(false)
+        const event: any = new window["Event"]("resize") as any;
+        window.dispatchEvent(event);
+      }))
       .subscribe(movie => this.movieList.push(movie));
-    Debug.logObject("Search Service | movieList", this.movieList);
   }
 
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.discoverMovies.subscribe(movie => this.movieList.push(movie));
-    Debug.logObject("Search Service | movieList", this.movieList);
+  isLoadingInitialMovies() {
+    return this.isLoading$;
   }
-
   // addSearchFilters(searchFilter: SearchFilter) {
   //   this.searchFilters.push(searchFilter);
   // }
@@ -50,27 +58,28 @@ export class SearchService {
   //   return this.searchFiltersObservable;
   // }
 
-  getSearchResults(): Observable<MovieResult> {
-    return this.input.pipe(
-      debounceTime(250),
-      distinctUntilChanged(),
-      switchMap(input => {
-        Debug.logValue("getSearchResults input", input);
-        return from(this.movieList).pipe(
-          filter(movie =>
-            movie.title.toLowerCase().includes(input.toLowerCase())
-          )
-        );
-      })
-      // switchMap(input => {
-      //   Debug.logValue("getSearchResults input", input);
-      //   return this.movies.pipe(
-      //     filter(movie =>
-      //       movie.title.toLowerCase().includes(input.toLowerCase())
-      //     )
-      //   );
-      // })
-    );
+  getSearchResults(searchQuery?: string): MovieResult[] {
+    return this.movieList;
+    // const filterObservable = this.input.pipe(
+    //   debounceTime(250),
+    //   distinctUntilChanged(),
+    // );
+    // switchMap(input => {
+    //   Debug.logValue("getSearchResults input", input);
+    //   return from(this.movieList).pipe(
+    //     filter(movie =>
+    //       movie.title.toLowerCase().includes(input.toLowerCase())
+    //     )
+    //   );
+
+    // switchMap(input => {
+    //   Debug.logValue("getSearchResults input", input);
+    //   return this.movies.pipe(
+    //     filter(movie =>
+    //       movie.title.toLowerCase().includes(input.toLowerCase())
+    //     )
+    //   );
+    // })
   }
 
   setInputObservable(inputObservable: Observable<any>) {
