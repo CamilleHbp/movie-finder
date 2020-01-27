@@ -1,4 +1,4 @@
-.ionic-spinner {
+#movie-spinner {
   position: fixed;
   height: auto;
   width: 200px;
@@ -8,4 +8,14 @@
   bottom: 0px;
   margin: auto;
   z-index: 9;
+}
+
+#main-title {
+  text-align: center;
+  font-family: "Bangers", cursive;
+}
+
+#main-footer {
+  text-align: center;
+  font-family: "Bangers", cursive;
 }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Movie Finder
+    <ion-title id="main-title">
+      <h1>Movie Finder</h1>
     </ion-title>
   </ion-toolbar>
   <ion-toolbar>
@@ -11,20 +11,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content id="main-content">
   <ng-container *ngIf="isReady$ | async; else spinner">
     <app-results></app-results>
   </ng-container>
 </ion-content>
 
-<ion-footer>
+<ion-footer id="main-footer">
   <p>
     Made with ❤️ by CamilleBC.
   </p>
 </ion-footer>
 
 <ng-template #spinner>
-  <ion-spinner class="ionic-spinner"></ion-spinner>
+  <ion-spinner id="movie-spinner"></ion-spinner>
 </ng-template>
 
 <ng-template #loading>
