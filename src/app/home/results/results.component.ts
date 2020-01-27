@@ -26,10 +26,11 @@ export class ResultsComponent implements OnInit {
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
-    this.searchService
-      .getSearchResults(this.clearResults)
-      .subscribe(movie => {
-        this.movies.push(movie);
-      });
+    this.searchService.getSearchResults(this.clearResults).subscribe(movie => {
+      this.movies.push(movie);
+      this.movies.sort((movie, movieNext) =>
+        movie.title.toLowerCase().localeCompare(movieNext.title.toLowerCase())
+      );
+    });
   }
 }
