@@ -1,5 +1,5 @@
-<ion-virtual-scroll [items]="movies">
-  <ion-item *virtualItem="let item">
+<ion-virtual-scroll id="results__scroll" [items]="movies">
+  <ion-item id="results__scroll__item" lines="none" *virtualItem="let item">
     <ion-thumbnail slot="start">
       <ion-img
         src="http://image.tmdb.org/t/p/{{ poster_size }}{{ item.poster_path }}"

@@ -1,4 +1,18 @@
-#movie-spinner {
+#home__toolbar__search {
+  text-align: center;
+}
+
+#home__loading {
+  color: darkred;
+  font-family: "Bangers", cursive;
+}
+
+#home__footer {
+  text-align: center;
+  font-family: "Bangers", cursive;
+}
+
+#home__spinner {
   position: fixed;
   height: auto;
   width: 200px;
@@ -10,12 +24,7 @@
   z-index: 9;
 }
 
-#main-title {
-  text-align: center;
-  font-family: "Bangers", cursive;
-}
-
-#main-footer {
+#home__title {
   text-align: center;
   font-family: "Bangers", cursive;
 }

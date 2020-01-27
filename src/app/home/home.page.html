@@ -1,32 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title id="main-title">
+    <ion-title id="home__title">
       <h1>Movie Finder</h1>
     </ion-title>
   </ion-toolbar>
-  <ion-toolbar>
+  <ion-toolbar id="home__toolbar__search">
     <ng-container *ngIf="isReady$ | async; else loading">
       <app-search></app-search>
     </ng-container>
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="main-content">
+<ion-content id="home__content">
   <ng-container *ngIf="isReady$ | async; else spinner">
     <app-results></app-results>
   </ng-container>
 </ion-content>
 
-<ion-footer id="main-footer">
+<ion-footer id="home__footer">
   <p>
     Made with ❤️ by CamilleBC.
   </p>
 </ion-footer>
 
 <ng-template #spinner>
-  <ion-spinner id="movie-spinner"></ion-spinner>
+  <ion-spinner id="home__spinner"></ion-spinner>
 </ng-template>
 
-<ng-template #loading>
-  <ion-text>Loading data from server...</ion-text>
+<ng-template  #loading>
+  <ion-text id="home__loading">Loading data from server...</ion-text>
 </ng-template>
