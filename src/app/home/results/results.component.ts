@@ -23,6 +23,10 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit() {}
 
+  loadPlaceholder(event) {
+    event.target.src = "assets/images/movie_placeholder.png";
+  }
+
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.

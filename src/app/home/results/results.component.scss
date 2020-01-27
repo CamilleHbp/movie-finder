@@ -1,5 +1,6 @@
-#results__scroll {
-  //   margin-top: 5rem;
+#results__thumbnail {
+  height: 100%;
+  width: 92px;
 }
 
 #results__scroll__item {
@@ -7,4 +8,5 @@
   margin-bottom: 0.5rem;
   box-shadow: 0.1rem 0.1rem 0.1rem lightgrey;
   border-radius: 5px;
+  height: 160px;
 }

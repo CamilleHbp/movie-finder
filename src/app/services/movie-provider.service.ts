@@ -19,7 +19,7 @@ export class MovieProviderService {
 
     return this.http
       .get<DiscoverResponse>(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
+        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
       )
       .pipe(
         switchMap(firstResponse =>
@@ -27,7 +27,7 @@ export class MovieProviderService {
             concatMap(page =>
               this.http
                 .get<DiscoverResponse>(
-                  `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`
+                  `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`
                 )
                 .pipe(
                   concatMap(response =>

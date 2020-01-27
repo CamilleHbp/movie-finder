@@ -1,5 +1,7 @@
 #search__searchbar {
-    // text-align: center;
+  // text-align: center;
+  @media (min-width: 800px) {
     padding-left: 10rem;
     padding-right: 10rem;
+  }
 }
