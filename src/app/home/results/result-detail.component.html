@@ -1,0 +1,25 @@
+<ng-container *ngIf="movie">
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-title id="result-detail__header">{{ movie.title }} </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content fullscreen id="result-detail__content">
+    <ion-card id="result-detail__card">
+      <ion-img
+        id="result-detail__poster"
+        src="http://image.tmdb.org/t/p/{{ poster_size }}{{ movie.poster_path }}"
+        (ionError)="loadPlaceholder($event)"
+        [alt]="movie.title"
+      >
+      </ion-img>
+      <ion-card-header>
+        <ion-card-title>{{ movie.title }}</ion-card-title>
+        <ion-card-subtitle>{{ movie.release_date }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content id="result-detail__card__content">
+        {{ movie.overview }}
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+</ng-container>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
-import { take } from "rxjs/operators";
+import { ModalController } from "@ionic/angular";
 import MovieResult from "../../services/MovieResult";
+import { ResultDetailModal } from "./result-detail.component";
 import { SearchService } from "../../services/search.service";
 
 import Debug from "../../../Debug";
@@ -15,7 +15,10 @@ export class ResultsComponent implements OnInit {
   private movies: MovieResult[] = [];
   private poster_size: string = "w92";
 
-  constructor(private searchService: SearchService) {}
+  constructor(
+    private modalController: ModalController,
+    private searchService: SearchService
+  ) {}
 
   private clearResults: () => void = () => {
     this.movies = [];
@@ -36,5 +39,17 @@ export class ResultsComponent implements OnInit {
         movie.title.toLowerCase().localeCompare(movieNext.title.toLowerCase())
       );
     });
+  }
+
+  async openMovieDetails(movie: MovieResult) {
+    Debug.logObject("modal movie", movie);
+    const modal = await this.modalController.create({
+      component: ResultDetailModal,
+      componentProps: {
+        movie,
+        modalController: this.modalController
+      }
+    });
+    return await modal.present();
   }
 }

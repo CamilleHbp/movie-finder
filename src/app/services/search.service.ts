@@ -27,10 +27,7 @@ export class SearchService {
       .getDiscoverMoviesObservable()
       .pipe(
         finalize(() => {
-          console.log("isReady");
           this.isReady$.next(true);
-          // const event: any = new window["Event"]("resize") as any;
-          // window.dispatchEvent(event);
         })
       )
       .subscribe(movie => this.movieList.push(movie));
