@@ -20,6 +20,9 @@
       <ion-card-content id="result-detail__card__content">
         {{ movie.overview }}
       </ion-card-content>
+      <ion-button (click)="dismiss()" color="danger" id="result-detail__close">
+        Close
+      </ion-button>
     </ion-card>
   </ion-content>
 </ng-container>

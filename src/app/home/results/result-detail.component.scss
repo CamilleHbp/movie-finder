@@ -1,17 +1,13 @@
-app-result-detail.ion-page {
-  height: 700px;
-  --height: 700px;
-}
-#result-detail__content {
-  height: 700px;
-  --height: 700px;
+#result-detail__close {
+  width: 100%;
 }
 
 #result-detail__card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  min-height: 100%;
   text-align: center;
 }
 

@@ -13,7 +13,7 @@ export class ResultDetailModal implements OnInit {
   @Input() modalController: ModalController;
   private poster_size: string = "w300";
 
-  constructor(modalController: ModalController) {
+  constructor() {
     // this.movie = navParams.get("movie");
     // Debug.logObject("modal movie", this.movie.title);
   }
@@ -30,6 +30,6 @@ export class ResultDetailModal implements OnInit {
   }
 
   dismiss() {
-    this.modalController.dismiss()
+    this.modalController.dismiss();
   }
 }
